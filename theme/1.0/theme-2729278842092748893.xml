@@ -46,7 +46,7 @@
   <Variable name="body.background" description="Background"
       color="$(body.background.color)"
       type="background"
-      default="$(color) none repeat scroll top left"  value="$(color) url(https://raw.githubusercontent.com/dannyforever/blog/master/picture/necessary/back.jpg) no-repeat scroll top center /* Credit: Michael Elkan (http://www.offset.com/photos/394244) */;"/>
+      default="$(color) none repeat scroll top left"  value="$(color) url(https://raw.githubusercontent.com/miemiehoho/blog/master/picture/necessary/back.jpg) no-repeat scroll top center /* Credit: Michael Elkan (http://www.offset.com/photos/394244) */;"/>
   <Variable name="body.background.color" description="Body background color"
       type="color"
       default="#eee"  value="#eeeeee"/>
@@ -3114,7 +3114,7 @@ margin-left:40px
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isPost' id='PageList1' locked='true' title='' type='PageList' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://www.dannyhzz.top/', 'title': '主页', 'position': 0}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://www.miemiehoho.com/', 'title': '主页', 'position': 0}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>主页</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -3854,7 +3854,7 @@ margin-left:40px
           </div>
         </b:includable>
             <b:includable id='authorProfileImage'>
-  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:width='data:authorPhoto.width' src='https://raw.githubusercontent.com/dannyforever/blog/master/picture/necessary/head.jpg'/>
+  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:width='data:authorPhoto.width' src='https://raw.githubusercontent.com/miemiehoho/blog/master/picture/necessary/head.jpg'/>
 </b:includable>
             <b:includable id='content'>
   <b:if cond='data:team'>
@@ -4078,7 +4078,7 @@ margin-left:40px
     </script>
 </b:if>
 
-    <script async='async' src='https://img.blog.dannyhzz.top/1468123664.js'/>
+    <script async='async' src='https://raw.githubusercontent.com/miemiehoho/blog/master/theme/1.0/1468123664.js'/>
 	
 
 <script>
