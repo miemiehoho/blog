@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   &lt;!--<head>--&gt;&lt;head&gt;
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
     <title><data:view.title.escaped/></title>
     <b:include data='blog' name='all-head-content'/>
 
-  &lt;!--<b:skin version='1.3.2'><![CDATA[]]></b:skin>
-  <link href='https://raw.githubusercontent.com/miemiehoho/blog/master/theme/1.0/skin.css' rel='stylesheet' type='text/css'/>
+    &lt;!--<b:skin version='1.3.2'><![CDATA[]]></b:skin>
+    <link href='https://raw.githubusercontent.com/miemiehoho/blog/master/theme/1.0/skin.css' rel='stylesheet' type='text/css'/>
 
-  <b:template-skin>
+    <b:template-skin>
       <![CDATA[
       body#layout .hidden,
       body#layout .invisible {
@@ -143,12 +143,11 @@
         <b:includable id='postBodySnippet' var='post'>
           <div class='container post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
 
-<b:if cond='data:post.featuredImage'>  <!--判断文章内是否有图片&#65292;有则代码继续执行-->
-    <div class='snippet-thumbnail'>  <!--创建一个 div 容器&#65292;缩略图放置在这里-->
-        <img class='post-thumbnail' sizes='(max-width: 800px) 20vw, 128px' src='https://ae01.alicdn.com/kf/HTB1Gb7LUmzqK1RjSZFL5jcn2XXac.gif'/>  <!--预先放置一个加载图片&#65292;增强用户体验-->
-        <textarea class='post-text' style='display:none;'><data:post.body.escaped/></textarea> <!--这里放置文章全文&#65292;图片从中提取&#65292;样式设置为不显示-->
-    </div>
-</b:if>
+            <b:if cond='data:post.featuredImage'>
+              <div class='snippet-thumbnail'>
+                <b:include data='{                                     image: data:post.featuredImage,                                     imageSizes: [32, 64, 128, 256],                                     imageRatio: &quot;1:1&quot;,                                     sourceSizes: &quot;(max-width: 800px) 20vw, 128px&quot;                                  }' name='responsiveImage'/>
+              </div>
+            </b:if>
             <b:include cond='data:post' data='post' name='postSnippet'/>
           </div>
         </b:includable>
@@ -218,10 +217,11 @@
           <b:include data='post' name='postFooter'/>
         </b:includable>
         <b:includable id='snippetedPostThumbnail'>
-    <div class='snippet-thumbnail'>  <!--创建一个 div 容器&#65292;缩略图放置在这里-->
-        <img class='post-thumbnail' sizes='(max-width: 800px) 20vw, 128px' src='https://ae01.alicdn.com/kf/HTB1Gb7LUmzqK1RjSZFL5jcn2XXac.gif'/>  <!--预先放置一个加载图片&#65292;增强用户体验-->
-        <textarea class='post-text' style='display:none;'><data:post.body.escaped/></textarea> <!--这里放置文章全文&#65292;图片从中提取&#65292;样式设置为不显示-->
-    </div>
+          <div class='snippet-thumbnail'>
+            <b:with value='data:post.featuredImage.isYoutube                            ? resizeImage(data:post.featuredImage.youtubeMaxResDefaultUrl, 945, &quot;945:600&quot;)                            : &quot;&quot;' var='highRes'>
+              <b:include data='{                                  image: data:post.featuredImage,                                  imageSizes: [256, 512, 945, 1684],                                  imageRatio: &quot;945:600&quot;,                                  sourceSizes: &quot;(min-width: 954px) 842px, (min-width: 801px) calc(100vw - 112px), calc(100vw - 64px)&quot;,                                  enhancedSourceset: data:highRes                                }' name='responsiveImage'/>
+            </b:with>
+          </div>
         </b:includable>
       </b:defaultmarkup>
       <b:defaultmarkup type='Header'>
@@ -311,17 +311,15 @@
     <b:include data='blog' name='google-analytics'/>
 
     <script async='async' src='https://www.gstatic.com/external_hosted/clipboardjs/clipboard.min.js'/>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"></link>
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   &lt;/head&gt;&lt;!--</head>--&gt;
 
-  &lt;!--<body>--&gt;&lt;body&gt;
+  <body>
     <b:class cond='data:view.isPreview' name='preview'/>
     <b:class cond='data:view.isSingleItem' name='item-view'/>
     <b:class cond='data:view.isArchive' name='archive-view'/>
     <b:class cond='data:view.isLabelSearch' name='label-view'/>
     <b:class cond='data:view.isSearch and !data:view.isLabelSearch' name='search-view'/>
-    <b:class name='version-1-3-0'/>
+    <b:class name='version-1-3-2'/>
 
     <b:include name='skipNavigation'/>
 
@@ -415,6 +413,7 @@
         .header-widget {
           background-position: <data:blog.locale.languageAlignment/>;
           background-repeat: no-repeat;
+          background-size: cover;
         }
       </style>
     </b:if>
@@ -474,7 +473,7 @@
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isPost' id='PageList1' locked='true' title='' type='PageList' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://www.miemiehoho.com/', 'title': '主页', 'position': 0}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://www.miemiehoho.com/', 'title': '\u4e3b\u9875', 'position': 0}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>主页</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -662,13 +661,14 @@
           <b:include data='post' name='postFooter'/>
         </b:includable>
                     <b:includable id='snippetedPostThumbnail'>
-    <div class='snippet-thumbnail'>  <!--创建一个 div 容器&#65292;缩略图放置在这里-->
-        <img class='post-thumbnail' sizes='(max-width: 800px) 20vw, 128px' src='https://ae01.alicdn.com/kf/HTB1Gb7LUmzqK1RjSZFL5jcn2XXac.gif'/>  <!--预先放置一个加载图片&#65292;增强用户体验-->
-        <textarea class='post-text' style='display:none;'><data:post.body.escaped/></textarea> <!--这里放置文章全文&#65292;图片从中提取&#65292;样式设置为不显示-->
-    </div>
+          <div class='snippet-thumbnail'>
+            <b:with value='data:post.featuredImage.isYoutube                            ? resizeImage(data:post.featuredImage.youtubeMaxResDefaultUrl, 945, &quot;945:600&quot;)                            : &quot;&quot;' var='highRes'>
+              <b:include data='{                                  image: data:post.featuredImage,                                  imageSizes: [256, 512, 945, 1684],                                  imageRatio: &quot;945:600&quot;,                                  sourceSizes: &quot;(min-width: 954px) 842px, (min-width: 801px) calc(100vw - 112px), calc(100vw - 64px)&quot;,                                  enhancedSourceset: data:highRes                                }' name='responsiveImage'/>
+            </b:with>
+          </div>
         </b:includable>
                   </b:widget>
-                  <b:widget id='Blog1' locked='true' title='博文' type='Blog' version='2' visible='true'>
+                  <b:widget id='Blog1' locked='true' title='博文' type='Blog' visible='true'>
                     <b:widget-settings>
                       <b:widget-setting name='showDateHeader'>false</b:widget-setting>
                       <b:widget-setting name='style.textcolor'>#2196f3</b:widget-setting>
@@ -804,19 +804,73 @@
   </div>
 </b:includable>
                     <b:includable id='commentPicker' var='post'>
-  <b:if cond='data:post.commentSource == 1'>
-    <b:include data='post' name='iframeComments'/>
-  <b:elseif cond='data:post.showThreadedComments'/>
+  <b:if cond='data:post.showThreadedComments'>
     <b:include data='post' name='threadedComments'/>
   <b:else/>
     <b:include data='post' name='comments'/>
   </b:if>
 </b:includable>
                     <b:includable id='comments' var='post'>
-					<div id='comments'>
-        <div id='gitalk-container'/>   
-    </div>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
 
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+        <b:if cond='data:post.showManageComments'>
+          <b:include data='post' name='manageComments'/>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
 </b:includable>
                     <b:includable id='commentsLink'>
           <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
@@ -858,14 +912,7 @@
         </b:includable>
                     <b:includable id='homePageLink'><b:comment>Don&#39;t show</b:comment></b:includable>
                     <b:includable id='iframeComments' var='post'>
-  <b:if cond='data:post.allowIframeComments'>
-    <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
-    <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
-
-    <b:if cond='!data:post.embedCommentForm'>
-      <b:include data='post' name='commentsLink'/>
-    </b:if>
-  </b:if>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
 </b:includable>
                     <b:includable id='inlineAd' var='post'>
           <div>
@@ -874,6 +921,11 @@
             <b:include data='post' name='super.inlineAd'/>
           </div>
         </b:includable>
+                    <b:includable id='manageComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.manageComments'/>
+  </a>
+</b:includable>
                     <b:includable id='nextPageLink'>
           <a class='blog-pager-older-link flat-button ripple' expr:href='data:olderPageUrl' expr:title='data:messages.morePosts'>
             <data:messages.morePosts/>
@@ -902,12 +954,11 @@
                     <b:includable id='postBodySnippet' var='post'>
           <div class='container post-body entry-content' expr:id='&quot;post-snippet-&quot; + data:post.id'>
 
-            <b:if cond='data:post.featuredImage'>  <!--判断文章内是否有图片&#65292;有则代码继续执行-->
-    <div class='snippet-thumbnail'>  <!--创建一个 div 容器&#65292;缩略图放置在这里-->
-        <img class='post-thumbnail' sizes='(max-width: 800px) 20vw, 128px' src='https://ae01.alicdn.com/kf/HTB1Gb7LUmzqK1RjSZFL5jcn2XXac.gif'/>  <!--预先放置一个加载图片&#65292;增强用户体验-->
-        <textarea class='post-text' style='display:none;'><data:post.body.escaped/></textarea> <!--这里放置文章全文&#65292;图片从中提取&#65292;样式设置为不显示-->
-    </div>
-</b:if>
+            <b:if cond='data:post.featuredImage'>
+              <div class='snippet-thumbnail'>
+                <b:include data='{                                     image: data:post.featuredImage,                                     imageSizes: [32, 64, 128, 256],                                     imageRatio: &quot;1:1&quot;,                                     sourceSizes: &quot;(max-width: 800px) 20vw, 128px&quot;                                  }' name='responsiveImage'/>
+              </div>
+            </b:if>
             <b:include cond='data:post' data='post' name='postSnippet'/>
           </div>
         </b:includable>
@@ -932,7 +983,6 @@
   <b:if cond='data:view.isMultipleItems'>
     <span class='byline post-comment-link container'>
       <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
-      <b:include cond='data:post.commentSource == 1' name='commentsLinkIframe'/>
     </span>
   </b:if>
 </b:includable>
@@ -1058,6 +1108,9 @@
       <b:else/>
         <data:post.noNewCommentsText/>
       </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
     </p>
 
     <b:if cond='data:showCmtPopup'>
@@ -1069,7 +1122,7 @@
   </section>
 </b:includable>
                   </b:widget>
-                  <b:widget cond='data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId)' id='PopularPosts1' locked='true' title='' type='PopularPosts' version='2' visible='true'>
+                  <b:widget cond='data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId)' id='PopularPosts1' locked='true' title='' type='PopularPosts' visible='true'>
                     <b:widget-settings>
                       <b:widget-setting name='numItemsToShow'>3</b:widget-setting>
                       <b:widget-setting name='showThumbnails'>true</b:widget-setting>
@@ -1137,7 +1190,7 @@
           <b:include name='snippetedPostTitle'/>
           <b:include name='snippetedPostByline'/>
           <div class='item-content float-container'>
-      
+            <b:include cond='data:this.postDisplay.showFeaturedImage and data:post.featuredImage' name='snippetedPostThumbnail'/>
             <b:if cond='data:this.postDisplay.showSnippet'>
               <b:with value='&quot;popular-posts&quot;' var='snippetPrefix'>
                 <b:include cond='data:post' data='post' name='postSnippet'/>
@@ -1198,7 +1251,7 @@
         <b:class cond='data:widgets none w =&gt; w.sectionId == &quot;sidebar_top&quot;' name='no-items'/>
 
         <b:section class='sidebar_top' id='sidebar_top' name='Sidebar (Top)'>
-          <b:widget id='Profile1' locked='true' title='我的简介' type='Profile' version='2' visible='true'>
+          <b:widget id='Profile1' locked='true' title='我的简介' type='Profile' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='showaboutme'>true</b:widget-setting>
               <b:widget-setting name='showlocation'>false</b:widget-setting>
@@ -1214,7 +1267,7 @@
           </div>
         </b:includable>
             <b:includable id='authorProfileImage'>
-  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:width='data:authorPhoto.width' src='https://raw.githubusercontent.com/miemiehoho/blog/master/picture/necessary/head.jpg'/>
+  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/>
 </b:includable>
             <b:includable id='content'>
   <b:if cond='data:team'>
@@ -1418,41 +1471,6 @@
       </b:section>
     </aside>
 
-
-<b:if cond='data:blog.pageType in {&quot;index&quot;,&quot;searchQuery&quot;,&quot;searchLabel&quot;,&quot;archive&quot;}'> <!--如果当前页是首页&#65292;搜索页&#65292;标签页&#65292;那么代码继续执行-->
-    <script defer='defer'>
-        //<![CDATA[
-        var postThumbnails = document.getElementsByClassName("post-thumbnail");
-        var postContents = document.getElementsByClassName("post-text");
-        for (var i=0;i<postContents.length;i++)
-        {
-            var postContent = postContents[i].innerText;
-            var imgReg = /<img.*?(?:>|\/>)/gi;
-            var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
-            var imgTags = postContent.match(imgReg);
-            imgSrcs = imgTags[0].match(srcReg);
-            imgSrc = imgSrcs[1];
-            postThumbnails[i].setAttribute('src', imgSrc);
-        }
-        //]]>
-    </script>
-</b:if>
-
-    <script async='async' src='https://raw.githubusercontent.com/miemiehoho/blog/master/theme/1.0/1468123664.js'/>
-	
-
-<script>
-    var gitalk = new Gitalk({
-        clientID: 'dcedfe92a84497e269ef',
-        clientSecret: 'cd6e7f6803cc23a73e41fac020d58132b66028cc',
-        repo: 'blog.comments.gitalk',
-        owner: 'dannyforever',
-        admin: ['dannyforever'],
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    })
-
-    gitalk.render('gitalk-container')
-</script>
-  &lt;!--</body>--&gt;&lt;/body&gt;
+    <b:template-script async='true' name='indie' version='1.0.0'/>
+    &lt;!--</body>--&gt;&lt;/body&gt;
 </html>
